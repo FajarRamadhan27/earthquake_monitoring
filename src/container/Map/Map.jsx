@@ -1,5 +1,5 @@
 import React from "react"
-import { useJsApiLoader, GoogleMap } from "@react-google-maps/api"
+import { useJsApiLoader, GoogleMap, OverlayView } from "@react-google-maps/api"
 
 import './Map.scss'
 
@@ -24,7 +24,6 @@ const Map = () => {
       >
 
       </GoogleMap>
-      <h4>asdeasdasdas</h4>
     </div>
   )
 }

@@ -12,3 +12,13 @@
   flex-grow: 1;
   overflow: hidden;
 }
+
+.app__flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.primary-text {
+  color: var(--primary-blue);
+}
