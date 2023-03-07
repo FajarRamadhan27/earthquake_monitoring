@@ -1,0 +1,19 @@
+.app__activity {
+  max-width: 320px;
+  width: 100%;
+  background-color: #eee;
+  height: calc(100vh - 60px);
+  overflow: auto;
+  top: 60px;
+  left: 0;
+}
+
+.app__activity-head {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.app__activity-head-subtitle {
+  margin-top: 2rem;
+}

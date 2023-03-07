@@ -1,13 +1,15 @@
 import './App.scss'
 import { Navbar } from './components';
-import { LatestActivity, Map } from './container';
+import { Activity, Map } from './container';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Navbar/>
-      <LatestActivity/>
-      <Map/>
+      <div className="app__container">
+        <Activity/>
+        <Map/>
+      </div>
     </div>
   );
 }

@@ -1,2 +1,2 @@
-export { default as LatestActivity } from "./LatestActivity/LatestActivity"
+export { default as Activity } from "./Activity/Activity"
 export { default as Map } from "./Map/Map"
