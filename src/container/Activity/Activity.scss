@@ -25,9 +25,10 @@
 
 .app__activity-item {
   background-color: var(--white-color);
-  border-top: 1px solid;
-  border-bottom: 1px solid;
-  border-color: var(--primary-blue);
+  border-top: 0.1px dotted;
+  border-top-color: var(--gray-color);
+  border-bottom: 0.1px dotted;
+  border-bottom-color: var(--gray-color);
   padding: 0 1rem;
   margin: 0;
 
