@@ -2,6 +2,7 @@ import React from "react"
 import { useJsApiLoader, GoogleMap, OverlayView } from "@react-google-maps/api"
 
 import './Map.scss'
+import Drawer from "../../components/Drawer/Drawer"
 
 const center = { lat: -7.0909, lng: 107.6689}
 
@@ -24,6 +25,7 @@ const Map = () => {
       >
 
       </GoogleMap>
+      <Drawer />
     </div>
   )
 }
