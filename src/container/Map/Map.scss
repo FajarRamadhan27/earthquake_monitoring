@@ -1,0 +1,13 @@
+.app__map {
+  flex-grow: 1;
+  position: relative;
+}
+
+.MuiDrawer-paper {
+  height: 100%;
+  position: absolute;
+  right: 320px;
+  left: 0;
+  width: calc(100vw - 320px) !important;
+  transform: translateX(320px) !important;
+}

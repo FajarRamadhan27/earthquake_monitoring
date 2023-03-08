@@ -1,0 +1,82 @@
+.app__activity {
+  max-width: 320px;
+  width: 100%;
+  background-color: #eee;
+  height: calc(100vh - 60px);
+  overflow-x: hidden;
+  top: 60px;
+  left: 0;
+  cursor: pointer;
+}
+
+.app__activity-head {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.app__activity-head-subtitle {
+  margin-top: 2rem;
+}
+
+.app__activity-list {
+  margin-top: 2em;
+}
+
+.app__activity-item {
+  background-color: var(--white-color);
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-color: var(--primary-blue);
+  padding: 0 1rem;
+  margin: 0;
+
+  display: flex;
+  width: 100%;
+
+  .item-mg {
+    width: 3em;
+    bottom: 0.5em;
+    left: 0.5em;
+    top: 0.5em;
+
+    span {
+      font-size: 1em;
+    }
+  }
+
+  .item-detail {
+    width: 100%;
+    padding: 1rem;
+
+    h6 {
+      font-size: 1em;
+      margin-bottom: 0.1em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .subheader {
+      width: 100%;
+      justify-content: space-between;
+      flex-direction: row;
+      font-size: 0.77em;
+      
+      .time {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .depth {
+        flex-shrink: 0;
+        padding-left: 1rem;
+      }
+    }
+  }
+}
+
+
+
+

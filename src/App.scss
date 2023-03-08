@@ -1,0 +1,24 @@
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary-color);
+  font-family: var(--font-base);
+}
+
+.app__container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.app__flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.primary-text {
+  color: var(--primary-blue);
+}
