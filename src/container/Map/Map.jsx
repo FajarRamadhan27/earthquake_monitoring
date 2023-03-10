@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useJsApiLoader, GoogleMap } from "@react-google-maps/api"
 
 import './Map.scss'
@@ -11,6 +11,12 @@ const Map = () => {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   })
+
+  const [drawerOpen, setDrawer] = useState(false)
+
+  const toogleDrawer = () => (
+    setDrawer(!drawerOpen)
+  )
 
   if (!isLoaded) {
     return <h4>Loading</h4>
@@ -25,7 +31,7 @@ const Map = () => {
       >
 
       </GoogleMap>
-      <Drawer/>
+      <Drawer open={drawerOpen} handleClose={toogleDrawer}/>
     </div>
   )
 }

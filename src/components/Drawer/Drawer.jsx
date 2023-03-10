@@ -15,21 +15,7 @@ function a11yProps(index) {
   };
 }
 
-export default function Drawer() {
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: true,
-    right: false,
-  });
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
+export default function Drawer({ open, handleClose }) {
 
   const [tabIndex, setTabIndex] = React.useState(0);
 
@@ -39,39 +25,36 @@ export default function Drawer() {
 
   return (
     <div>
-      {['left', 'right', 'top', 'bottom'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <MUIBaseDrawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-            variant="persistent"
-          >
-            <div className="app__drawer-content">
-              <div className="header app__flex">
-                <h2 className="head-title primary-text">M 5.8 - 106 km ESE of Severo-Kuril’sk, Russia</h2>
-                <IconButton>
-                  <CloseIcon />
-                </IconButton>
-              </div>
-              <div className="sub-header">
-                <p>Location</p>
-                <p className="sub-header-value"><b>19.654°N 65.357°W</b></p>
-              </div>
-              <Tabs className="tab-menu" value={tabIndex} onChange={handleTabChange} centered>
-                <Tab label="Aktivitas" {...a11yProps(0)} />
-                <Tab label="Kontak Darurat" {...a11yProps(1)}/>
-              </Tabs>
-              <TabPanel value={tabIndex} index={0}>
-               <ActivityTable/>
-              </TabPanel>
-              <TabPanel value={tabIndex} index={1}>
-                <ContactTable/>
-              </TabPanel>
+      <React.Fragment key="bottom">
+        <MUIBaseDrawer
+          anchor="bottom"
+          open={open}
+          variant="persistent"
+        >
+          <div className="app__drawer-content">
+            <div className="header app__flex">
+              <h2 className="head-title primary-text">M 5.8 - 106 km ESE of Severo-Kuril’sk, Russia</h2>
+              <IconButton onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
             </div>
-          </MUIBaseDrawer>
-        </React.Fragment>
-      ))}
+            <div className="sub-header">
+              <p>Location</p>
+              <p className="sub-header-value"><b>19.654°N 65.357°W</b></p>
+            </div>
+            <Tabs className="tab-menu" value={tabIndex} onChange={handleTabChange} centered>
+              <Tab label="Aktivitas" {...a11yProps(0)} />
+              <Tab label="Kontak Darurat" {...a11yProps(1)}/>
+            </Tabs>
+            <TabPanel value={tabIndex} index={0}>
+              <ActivityTable/>
+            </TabPanel>
+            <TabPanel value={tabIndex} index={1}>
+              <ContactTable/>
+            </TabPanel>
+          </div>
+        </MUIBaseDrawer>
+      </React.Fragment>
     </div>
   );
 }

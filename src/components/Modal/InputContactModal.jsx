@@ -56,8 +56,8 @@ const InputContactModal = ({ open, handleClose}) => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button onClick={handleClose}>Batal</Button>
+          <Button onClick={handleSubmit}>Simpan</Button>
         </DialogActions>
       </Dialog>
     </div>
