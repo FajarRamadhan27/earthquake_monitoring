@@ -17,6 +17,9 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { visuallyHidden } from '@mui/utils';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import InputContactModal from '../Modal/InputContactModal';
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -167,6 +170,15 @@ EnhancedTableHead.propTypes = {
 
 function EnhancedTableToolbar(props) {
   const { numSelected } = props;
+  const [modalInputOpen, setInputModal] = React.useState(false);
+
+  const handleModalClose = () => {
+    setInputModal(false)
+  }
+
+  const handleModalOpen = () => {
+    setInputModal(true)
+  }
 
   return (
     <Toolbar
@@ -189,22 +201,30 @@ function EnhancedTableToolbar(props) {
           {numSelected} selected
         </Typography>
       ) : (
-        <></>
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
+          
+        </Typography>
       )}
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            {/* <DeleteIcon /> */}
+            <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            {/* <FilterListIcon /> */}
+        <Tooltip title="Tambah Kontak">
+          <IconButton onClick={handleModalOpen}>
+            <AddIcon/>
           </IconButton>
         </Tooltip>
       )}
+      <InputContactModal open={modalInputOpen} handleClose={handleModalClose}/>
     </Toolbar>
   );
 }

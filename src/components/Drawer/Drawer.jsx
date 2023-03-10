@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Drawer as MUIBaseDrawer, Tab, Tabs } from '@mui/material';
-import { AiOutlineClose} from "react-icons/ai"
+import { Drawer as MUIBaseDrawer, Tab, Tabs, Tooltip } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 import './Drawer.scss';
 import TabPanel from '../Tab/TabPanel';
@@ -49,7 +50,9 @@ export default function Drawer() {
             <div className="app__drawer-content">
               <div className="header app__flex">
                 <h2 className="head-title primary-text">M 5.8 - 106 km ESE of Severo-Kuril’sk, Russia</h2>
-                <AiOutlineClose/>
+                <IconButton>
+                  <CloseIcon />
+                </IconButton>
               </div>
               <div className="sub-header">
                 <p>Location</p>
