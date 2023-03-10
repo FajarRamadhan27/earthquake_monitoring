@@ -1,10 +1,11 @@
 .app__map {
   flex-grow: 1;
+  flex-direction: column;
   position: relative;
 }
 
 .MuiDrawer-paper {
-  height: 100%;
+  height: 50%;
   position: absolute;
   right: 320px;
   left: 0;

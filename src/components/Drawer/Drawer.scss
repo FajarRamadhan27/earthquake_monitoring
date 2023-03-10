@@ -1,0 +1,32 @@
+.app__drawer-content {
+  padding: 1rem;
+
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+
+    .head-title {
+      text-decoration: underline;
+    }
+  }
+
+  .sub-header {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1px;
+
+    .sub-header-value {
+      margin-left: 1rem;
+      text-decoration: bo;
+    }
+  }
+
+  .tab-menu {
+    min-height: unset !important;
+    
+    .MuiTab-root {
+      font-size: 0.775rem;
+      text-transform: none;
+    }
+  }
+}

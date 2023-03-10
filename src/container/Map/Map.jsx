@@ -1,5 +1,5 @@
 import React from "react"
-import { useJsApiLoader, GoogleMap, OverlayView } from "@react-google-maps/api"
+import { useJsApiLoader, GoogleMap } from "@react-google-maps/api"
 
 import './Map.scss'
 import Drawer from "../../components/Drawer/Drawer"
@@ -25,7 +25,7 @@ const Map = () => {
       >
 
       </GoogleMap>
-      <Drawer />
+      <Drawer/>
     </div>
   )
 }
