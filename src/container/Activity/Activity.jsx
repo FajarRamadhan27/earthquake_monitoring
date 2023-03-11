@@ -38,9 +38,21 @@ const Activity = () => {
     <div className="app__activity">
       <div className="app__activity-head">
         <h3 className="app__activity-head-title primary-text">Sistem Monitoring Peringatan Dini Zona Rawan Longsor dan Gempa Bumi</h3>
-        <h5 className="app__activity-head-subtitle">29 earthquakes</h5>
       </div>
+      <h4 className="app__activity-subtitle">Aktifitas</h4>
       <div className="app__activity-list">
+        <div className="app__activity-item" key="Test">
+          <div className="item-mg app__flex">
+            <span>2.9</span>
+          </div>
+          <div className="item-detail">
+            <h6>Kabupaten Cianjur</h6>
+            <div className="subheader app__flex">
+              <span className="time">2023-03-11 20:07:13 (UTC+07:00)</span>
+              <span className="depth">3.7 km</span>
+            </div>
+          </div>
+        </div>
         {activities.map((activity, index) => (
           <div className="app__activity-item" key={index}>
             <div className="item-mg app__flex">

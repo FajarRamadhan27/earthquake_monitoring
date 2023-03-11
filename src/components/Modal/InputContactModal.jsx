@@ -29,16 +29,25 @@ const InputContactModal = ({ open, handleClose}) => {
               autoFocus
               margin="dense"
               id="name"
-              label="Name"
+              label="Nama"
               type="text"
               value={name}
+              onChange={handleInputChange}
+              fullWidth
+            />
+              <TextField
+              margin="dense"
+              id="phone"
+              label="Telepon"
+              type="tel"
+              value={phone}
               onChange={handleInputChange}
               fullWidth
             />
             <TextField
               margin="dense"
               id="email"
-              label="Email Address"
+              label="Alamat"
               type="email"
               value={email}
               onChange={handleInputChange}
@@ -47,7 +56,7 @@ const InputContactModal = ({ open, handleClose}) => {
             <TextField
               margin="dense"
               id="phone"
-              label="Phone Number"
+              label="Gelar"
               type="tel"
               value={phone}
               onChange={handleInputChange}
