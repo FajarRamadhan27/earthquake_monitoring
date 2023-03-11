@@ -43,7 +43,7 @@ export default function Drawer({ open, handleClose }) {
               <p className="sub-header-value"><b>19.654°N 65.357°W</b></p>
             </div>
             <Tabs className="tab-menu" value={tabIndex} onChange={handleTabChange} centered>
-              <Tab label="Aktivitas" {...a11yProps(0)} />
+              <Tab label="History" {...a11yProps(0)} />
               <Tab label="Kontak Darurat" {...a11yProps(1)}/>
             </Tabs>
             <TabPanel value={tabIndex} index={0}>

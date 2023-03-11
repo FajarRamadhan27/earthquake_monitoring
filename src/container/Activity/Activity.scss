@@ -16,12 +16,21 @@
 }
 
 .app__activity-subtitle {
+  justify-content: space-between;
   margin-top: 2rem;
   margin-left: 1rem;
 }
 
 .app__activity-list {
-  margin-top: 0.5em;
+  margin-top: 1em;
+  height: 100%;
+
+  .tab-activity-menu {
+    .MuiTab-root {
+      font-size: 0.775rem;
+      text-transform: none;
+    }
+  }
 }
 
 .app__activity-item {
