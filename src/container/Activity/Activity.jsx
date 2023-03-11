@@ -1,7 +1,39 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import "./Activity.scss"
+ 
+var mqtt = require("mqtt");
+var options = {
+  protocol: "ws",
+  username: "",
+  password: "",
+  keepalive: 20,
+  clientId: "phpMQTT-subscriber",
+};
+var client = mqtt.connect("mqtt://broker.emqx.io:8083/mqtt", options);
+ 
+client.subscribe("disaster/history");
 
-const activity = () => {
+const Activity = () => {
+  
+  const [activities, setActivities] = useState([])
+  
+  useEffect(() => {
+    client.on("message", function (topic, message) {
+      var note = message.toString();
+      console.log("Received message:", note);
+      setActivities(prevActivities => [
+        ...prevActivities,
+        {
+          mg: 2.6,
+          location: "14 km SE of Lincolnville, Kansaasdaasdasdas",
+          time: "2023-03-07 17:40:54 (UTC+07:00)",
+          dept: "7.3 km",
+        },
+      ]);
+    });
+  }, [client]);
+  
+  console.log(activities)
   return (
     <div className="app__activity">
       <div className="app__activity-head">
@@ -9,165 +41,23 @@ const activity = () => {
         <h5 className="app__activity-head-subtitle">29 earthquakes</h5>
       </div>
       <div className="app__activity-list">
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
+        {activities.map((activity, index) => (
+          <div className="app__activity-item" key={index}>
+            <div className="item-mg app__flex">
+              <span>{activity.mg}</span>
+            </div>
+            <div className="item-detail">
+              <h6>{activity.location}</h6>
+              <div className="subheader app__flex">
+                <span className="time">{activity.time}</span>
+                <span className="depth">{activity.depth}</span>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="app__activity-item">
-          <div className="item-mg app__flex">
-            <span>2.6</span>
-          </div>
-          <div className="item-detail">
-            <h6>14 km SE of Lincolnville, Kansaasdaasdasdas</h6>
-            <div className="subheader app__flex">
-              <span className="time">2023-03-07 17:40:54 (UTC+07:00)</span>
-              <span className="depth">7.3 km</span>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   )
 }
 
-export default activity
+export default Activity
