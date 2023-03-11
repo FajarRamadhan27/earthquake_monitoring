@@ -62,7 +62,7 @@ const Activity = () => {
   return (
     <div className="app__activity">
       <div className="app__activity-head">
-        <h3 className="app__activity-head-title primary-text">Sistem Monitoring Peringatan Dini Zona Rawan Longsor dan Gempa Bumi</h3>
+        <h3 className="app__activity-head-title">Sistem Monitoring Peringatan Dini Zona Rawan Longsor dan Gempa Bumi</h3>
       </div>
         {/* <Tooltip title="Tambah Lokasi">
           <IconButton onClick={handleModalOpen}>

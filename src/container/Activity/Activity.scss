@@ -11,6 +11,8 @@
 
 .app__activity-head {
   display: flex;
+  background-color: var(--primary-blue);
+  color: azure;
   flex-direction: column;
   padding: 1rem;
 }
@@ -22,6 +24,7 @@
 }
 
 .app__activity-list {
+  background-color: var(--white-color);
   margin-top: 1em;
   height: 100%;
 
