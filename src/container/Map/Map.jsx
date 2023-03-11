@@ -3,6 +3,7 @@ import { useJsApiLoader, GoogleMap, Marker, InfoWindow } from "@react-google-map
 
 import './Map.scss'
 import Drawer from "../../components/Drawer/Drawer"
+import { getDevicesPosition } from "../../utils/network"
 
 const center = { lat: -7.0909, lng: 107.6689}
 
@@ -13,11 +14,17 @@ const Map = () => {
   })
 
   const [markerPositions, setMarkerPosition] = useState([
-    { lat: -6.9175, lng: 107.6191, name: "Bandung" },
-    { lat: -6.5733, lng: 107.7646, name: "Kabupaten Subang" },
-    { lat: -6.3017, lng: 107.1426, name: "Karawang" },
-    { lat: -6.2348, lng: 106.9926, name: "Bekasi" }
+    { lat: -6.9175, lng: 107.6191, name: "Bandung", device_id: null },
+    { lat: -6.5733, lng: 107.7646, name: "Kabupaten Subang", device_id: null },
+    { lat: -6.3017, lng: 107.1426, name: "Karawang", device_id: null },
+    { lat: -6.2348, lng: 106.9926, name: "Bekasi", device_id: null }
   ]);
+
+  useState(() => {
+    getDevicesPosition((res) => {
+      setMarkerPosition(res)
+    })
+  }, [])
 
   const [selectedMarker, setSelectedMarker] = useState(null);
 
@@ -57,7 +64,11 @@ const Map = () => {
           >
             {selectedMarker === marker && (
               <InfoWindow onCloseClick={handleInfoWindowClose}>
-                <div>{marker.name}</div>
+                <div>
+                  <div>{marker.name}</div>
+                  <div><b>Devide_id :</b>{marker.device_id}</div>
+                </div>
+               
               </InfoWindow>
             )}
           </Marker>
