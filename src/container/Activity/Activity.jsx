@@ -9,7 +9,7 @@ var options = {
   keepalive: 20,
   clientId: "phpMQTT-subscriber",
 };
-var client = mqtt.connect("mqtt://broker.emqx.io:8083/mqtt", options);
+var client = mqtt.connect(process.env.REACT_APP_MQTT_HOST, options);
  
 client.subscribe("disaster/history");
 
@@ -37,7 +37,7 @@ const Activity = () => {
   return (
     <div className="app__activity">
       <div className="app__activity-head">
-        <h3 className="app__activity-head-title primary-text">USGS Magnitude 2.5+ Earthquakes, Past Day</h3>
+        <h3 className="app__activity-head-title primary-text">Sistem Monitoring Peringatan Dini Zona Rawan Longsor dan Gempa Bumi</h3>
         <h5 className="app__activity-head-subtitle">29 earthquakes</h5>
       </div>
       <div className="app__activity-list">
