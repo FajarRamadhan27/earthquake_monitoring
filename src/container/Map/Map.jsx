@@ -3,8 +3,10 @@ import { useJsApiLoader, GoogleMap, Marker, InfoWindow } from "@react-google-map
 
 import './Map.scss'
 import Drawer from "../../components/Drawer/Drawer"
-import { getDevicesPosition, setSelectedMarker, clearSelectedMarker } from "../../utils"
-import { useDispatch, useSelector } from 'react-redux'
+import { getDevicesPosition, setSelectedMarker } from "../../utils"
+import { useDispatch } from 'react-redux'
+
+import { getContacts, setContact } from '../../utils';
 
 const center = { lat: -7.0909, lng: 107.6689}
 
@@ -15,6 +17,7 @@ const Map = () => {
   })
 
   const [markerPositions, setMarkerPosition] = useState([]);
+  const [markerHover, setMarkerHover] = useState(null);
 
   useState(() => {
     getDevicesPosition((res) => {
@@ -24,23 +27,27 @@ const Map = () => {
 
   const dispatch = useDispatch()
 
-  const { selectedMarker } =  useSelector((state) => state.marker)
 
-  function handleMarkerClick(marker) {
-    dispatch(setSelectedMarker(marker))
+  const handleDrawerHover = (marker) => {
+    setMarkerHover(marker)
   }
 
-  function handleInfoWindowClose() {
-   dispatch(clearSelectedMarker())
+  const handleDrawerHoverOut = (marker) => {
+    setMarkerHover(null)
   }
+
 
   const [drawerOpen, setDrawer] = useState(false)
 
-  const toogleDrawer = () => (
-    setDrawer(!drawerOpen)
-  )
+  const handleMarkerClick = (marker) => {
+    dispatch(setSelectedMarker(marker))
 
-  
+    getContacts({location_id: marker.location_id }, (result) => {
+      dispatch(setContact(result))
+    })
+
+    setDrawer(true)
+  }
 
   if (!isLoaded) {
     return <h4>Loading</h4>
@@ -56,12 +63,12 @@ const Map = () => {
         {markerPositions.map((marker, index) => (
           <Marker 
             position={marker}
-            onMouseOver={() => handleMarkerClick(marker)}
-            onMouseOut={() => setSelectedMarker(null)} 
-            onClick={toogleDrawer} 
+            onMouseOver={() => {handleDrawerHover(marker)}}
+            onMouseOut={handleDrawerHoverOut} 
+            onClick={() => handleMarkerClick(marker)} 
           >
-            {selectedMarker === marker && (
-              <InfoWindow onCloseClick={handleInfoWindowClose}>
+            {markerHover === marker && (
+              <InfoWindow onCloseClick={handleDrawerHoverOut}>
                 <div>
                   <div>{marker.name}</div>
                   <div><b>Devide_id :</b>{marker.device_id}</div>
@@ -72,7 +79,7 @@ const Map = () => {
           </Marker>
         ))}
       </GoogleMap>
-      <Drawer open={drawerOpen} handleClose={toogleDrawer}/>
+      <Drawer open={drawerOpen} handleClose={setDrawer}/>
     </div>
   )
 }

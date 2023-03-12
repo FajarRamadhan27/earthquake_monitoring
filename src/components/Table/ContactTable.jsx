@@ -20,7 +20,7 @@ import { visuallyHidden } from '@mui/utils';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import InputContactModal from '../Modal/InputContactModal';
-import { getContacts } from '../../utils';
+import { useDispatch, useSelector } from 'react-redux';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -69,15 +69,15 @@ const headCells = [
   },
   {
     id: 'address',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Alamat',
   },
   {
     id: 'title',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
-    label: 'Gelar',
+    label: 'Jabatan',
   },
 ];
 
@@ -203,19 +203,17 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function ContactTable() {
-  const [contacts, setConctact] = React.useState([]);
+
+  const dispatch = useDispatch()
+
+  const { contacts } = useSelector((state) => state.contact)
+  const { location_id } =  useSelector((state) => state.marker.selectedMarker)
+
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('phone');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  React.useEffect(() => {
-    getContacts((result) => {
-      setConctact(result)
-    })
-  }, [])
-
   
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -320,8 +318,8 @@ export default function ContactTable() {
                         {row.name}
                       </TableCell>
                       <TableCell align="right">{row.phone}</TableCell>
-                      <TableCell align="right">{row.address}</TableCell>
-                      <TableCell align="right">{row.title}</TableCell>
+                      <TableCell>{row.address}</TableCell>
+                      <TableCell>{row.title}</TableCell>
                     </TableRow>
                   );
                 })}

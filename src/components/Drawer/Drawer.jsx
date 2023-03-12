@@ -26,6 +26,10 @@ export default function Drawer({ open, handleClose }) {
     setTabIndex(index);
   };
 
+  const handleDrawerClose = () => {
+    handleClose(false)
+  }
+
   return (
     <div>
       <React.Fragment key="bottom">
@@ -37,7 +41,7 @@ export default function Drawer({ open, handleClose }) {
           <div className="app__drawer-content">
             <div className="header app__flex">
               <h2 className="head-title primary-text">{`${device_id}  ${name}`}</h2>
-              <IconButton onClick={handleClose}>
+              <IconButton onClick={handleDrawerClose}>
                 <CloseIcon />
               </IconButton>
             </div>

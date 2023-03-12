@@ -4,6 +4,7 @@ const initSelectedMarker = {
   name: null,
   id: null,
   long: null,
+  location_id: null,
   lat: null
 }
 
