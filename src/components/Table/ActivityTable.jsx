@@ -65,34 +65,34 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'name',
+    id: 'time',
     numeric: false,
     disablePadding: true,
-    label: 'Dessert (100g serving)',
+    label: 'Waktu',
   },
   {
-    id: 'calories',
+    id: 'humidity',
     numeric: true,
     disablePadding: false,
-    label: 'Calories',
+    label: 'Humidity',
   },
   {
-    id: 'fat',
+    id: 'rainfall',
     numeric: true,
     disablePadding: false,
-    label: 'Fat (g)',
+    label: 'Rainfall',
   },
   {
-    id: 'carbs',
+    id: 'slope',
     numeric: true,
     disablePadding: false,
-    label: 'Carbs (g)',
+    label: 'Slope',
   },
   {
-    id: 'protein',
+    id: 'landMovement',
     numeric: true,
     disablePadding: false,
-    label: 'Protein (g)',
+    label: 'Land Movement',
   },
 ];
 
