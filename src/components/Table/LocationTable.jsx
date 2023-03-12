@@ -18,9 +18,11 @@ import Tooltip from '@mui/material/Tooltip';
 import { visuallyHidden } from '@mui/utils';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import InputContactModal from '../Modal/InputContactModal';
-import { getLocation } from '../../utils';
+import { getLocation, setLocationData, toogleLocationForm } from '../../utils';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import InputLocationModal from '../Modal/InputLocationModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAllLocation } from '../../utils';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -55,6 +57,12 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
+  {
+    id: 'id',
+    numeric: false,
+    disablePadding: false,
+    label: 'id',
+  },
   {
     id: 'name',
     numeric: false,
@@ -126,15 +134,12 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
-  const [modalInputOpen, setInputModal] = React.useState(false);
+  const dispatch = useDispatch()
 
-  const handleModalClose = () => {
-    setInputModal(false)
-  }
+  const { numSelected } = props;
 
   const handleModalOpen = () => {
-    setInputModal(true)
+    dispatch(toogleLocationForm())
   }
 
   return (
@@ -181,7 +186,6 @@ function EnhancedTableToolbar(props) {
           </IconButton>
         </Tooltip>
       )}
-      <InputContactModal open={modalInputOpen} handleClose={handleModalClose}/>
     </Toolbar>
   );
 }
@@ -191,16 +195,20 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function LocationTable() {
-  const [location, setLocation] = React.useState([]);
+
+  const dispatch = useDispatch()
+
+  const { allLocation } = useSelector((state) => state.location)
+
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('name');
+  const [orderBy, setOrderBy] = React.useState('location_id');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   React.useEffect(() => {
     getLocation((result) => {
-      setLocation(result)
+      dispatch(setAllLocation(result))
     })
   }, [])
 
@@ -213,19 +221,25 @@ export default function LocationTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = location.map((n) => n.id);
+      const newSelected = allLocation.map((n) => n.location_id);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
+  const handleRowButtonClick = (e, row) => {
+    e.stopPropagation()
+    dispatch(setLocationData(row))
+    dispatch(toogleLocationForm())
+  }
+
+  const handleClick = (event, location_id) => {
+    const selectedIndex = selected.indexOf(location_id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, location_id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -240,28 +254,18 @@ export default function LocationTable() {
     setSelected(newSelected);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const isSelected = (id) => selected.indexOf(id) !== -1;
+  const isSelected = (location_id) => selected.indexOf(location_id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - location.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - allLocation.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 1, boxShadow: 'none' }}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
+        <TableContainer  style={{ overflowX: 'hidden' }}>
           <Table
-            // sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={'small'}
           >
@@ -271,26 +275,26 @@ export default function LocationTable() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={location.length}
+              rowCount={allLocation.length}
             />
             <TableBody>
-              {stableSort(location, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
+              {/* {stableSort(allLocation, getComparator(order, orderBy)) */}
+              {allLocation.map((row, index) => {
+                  const isItemSelected = isSelected(row.location_id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.id}
+                      key={row.location_id}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
+                      <TableCell padding="checkbox"
+                         onClick={(event) => handleClick(event, row.location_id)}
+                      >
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
@@ -299,9 +303,10 @@ export default function LocationTable() {
                           }}
                         />
                       </TableCell>
+                      <TableCell>{row.location_id}</TableCell>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>
-                        <IconButton>
+                        <IconButton onClick={(e) => handleRowButtonClick(e, row)}>
                           <OpenInNewIcon/>
                         </IconButton>
                       </TableCell>
@@ -319,6 +324,7 @@ export default function LocationTable() {
               )}
             </TableBody>
           </Table>
+          <InputLocationModal/>
         </TableContainer>
       </Paper>
     </Box>
