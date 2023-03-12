@@ -14,12 +14,7 @@ const Map = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   })
 
-  const [markerPositions, setMarkerPosition] = useState([
-    { lat: -6.9175, lng: 107.6191, name: "Bandung", device_id: null },
-    { lat: -6.5733, lng: 107.7646, name: "Kabupaten Subang", device_id: null },
-    { lat: -6.3017, lng: 107.1426, name: "Karawang", device_id: null },
-    { lat: -6.2348, lng: 106.9926, name: "Bekasi", device_id: null }
-  ]);
+  const [markerPositions, setMarkerPosition] = useState([]);
 
   useState(() => {
     getDevicesPosition((res) => {
