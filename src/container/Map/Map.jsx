@@ -3,7 +3,8 @@ import { useJsApiLoader, GoogleMap, Marker, InfoWindow } from "@react-google-map
 
 import './Map.scss'
 import Drawer from "../../components/Drawer/Drawer"
-import { getDevicesPosition } from "../../utils/network"
+import { getDevicesPosition, setSelectedMarker, clearSelectedMarker } from "../../utils"
+import { useDispatch, useSelector } from 'react-redux'
 
 const center = { lat: -7.0909, lng: 107.6689}
 
@@ -26,14 +27,16 @@ const Map = () => {
     })
   }, [])
 
-  const [selectedMarker, setSelectedMarker] = useState(null);
+  const dispatch = useDispatch()
+
+  const { selectedMarker } =  useSelector((state) => state.marker)
 
   function handleMarkerClick(marker) {
-    setSelectedMarker(marker);
+    dispatch(setSelectedMarker(marker))
   }
 
   function handleInfoWindowClose() {
-    setSelectedMarker(null);
+   dispatch(clearSelectedMarker())
   }
 
   const [drawerOpen, setDrawer] = useState(false)

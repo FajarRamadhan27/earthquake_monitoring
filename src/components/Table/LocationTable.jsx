@@ -19,7 +19,7 @@ import { visuallyHidden } from '@mui/utils';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import InputContactModal from '../Modal/InputContactModal';
-import { getLocation } from '../../utils/network';
+import { getLocation } from '../../utils';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 function descendingComparator(a, b, orderBy) {
