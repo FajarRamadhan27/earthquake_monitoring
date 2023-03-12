@@ -49,7 +49,7 @@
   width: 100%;
 
   .item-mg {
-    width: 3em;
+    width: 25%;
     bottom: 0.5em;
     left: 0.5em;
     top: 0.5em;
@@ -60,34 +60,46 @@
   }
 
   .item-detail {
-    width: 100%;
+    width: 75%;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
 
-    h6 {
-      font-size: 1em;
-      margin-bottom: 0.1em;
+    .time {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-size:1em;
+      margin-bottom: 0.5rem;
     }
 
-    .subheader {
-      width: 100%;
-      justify-content: space-between;
+    .activty-detail-header {
+      display: flex;
       flex-direction: row;
-      font-size: 0.77em;
-      
-      .time {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .activity-detail-container {
+
+      display: flex;
+      justify-content: space-between;
+
+      .activity-detail {
+        display: flex;
+        justify-content: start;
+        align-items: flex-start;
+        font-size: 0.83em;
+  
+        .detail-value {
+          margin-left: 0.5rem;
+        }
       }
 
-      .depth {
-        flex-shrink: 0;
-        padding-left: 1rem;
+      .right-side {
+        margin-left: 5rem;
       }
-    }
+    }    
   }
 }
 

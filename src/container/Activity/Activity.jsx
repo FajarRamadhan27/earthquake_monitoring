@@ -4,6 +4,10 @@ import "./Activity.scss"
 import InputLocationModal from "../../components/Modal/InputLocationModal"
 import TabPanel from "../../components/Tab/TabPanel"
 import { LocationTable } from "../../components"
+import GrainIcon from '@mui/icons-material/Grain';
+import InvertColorsIcon from '@mui/icons-material/InvertColors';
+import TerrainIcon from '@mui/icons-material/Terrain';
+import LandslideIcon from '@mui/icons-material/Landslide';
  
 var mqtt = require("mqtt");
 var options = {
@@ -55,20 +59,11 @@ const Activity = () => {
     setInputModal(false)
   }
 
-  const handleModalOpen = () => {
-    setInputModal(true)
-  }
-
   return (
     <div className="app__activity">
       <div className="app__activity-head">
         <h2 className="app__activity-head-title">Early Warning System</h2>
       </div>
-        {/* <Tooltip title="Tambah Lokasi">
-          <IconButton onClick={handleModalOpen}>
-              <AddIcon/>
-          </IconButton>
-        </Tooltip> */}
       <div className="app__activity-list">
         <Tabs className="tab-activity-menu" value={tabIndex} onChange={handleTabChange} centered>
           <Tab label="Aktivitas" {...a11yProps(0)} />
@@ -77,13 +72,29 @@ const Activity = () => {
         <TabPanel value={tabIndex} index={0}>
           <div className="app__activity-item" key="Test">
             <div className="item-mg app__flex">
-              <span>2.9</span>
+              <h4>CGK-01</h4>
             </div>
             <div className="item-detail">
-              <h6>Kabupaten Cianjur</h6>
-              <div className="subheader app__flex">
-                <span className="time">2023-03-11 20:07:13 (UTC+07:00)</span>
-                <span className="depth">3.7 km</span>
+              <span className="time">2023-03-11 20:07:13</span>
+              <div className="activity-detail-container">
+                <div className="activity-detail">
+                  <InvertColorsIcon fontSize="inherit"/>
+                  <span className="detail-value">80.5</span>
+                </div>
+                <div className="activity-detail right-side">
+                  <GrainIcon fontSize="inherit"/>
+                  <span className="detail-value">70.05</span>
+                </div>
+              </div>
+              <div className="activity-detail-container">
+                <div className="activity-detail">
+                  <TerrainIcon fontSize="inherit"/>
+                  <span className="detail-value">60.1</span>
+                </div>
+                <div className="activity-detail right-side">
+                  <LandslideIcon fontSize="inherit"/>
+                  <span className="detail-value">40.568</span>
+                </div>
               </div>
             </div>
           </div>
