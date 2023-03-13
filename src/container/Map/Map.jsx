@@ -3,7 +3,7 @@ import { useJsApiLoader, GoogleMap, Marker, InfoWindow } from "@react-google-map
 
 import './Map.scss'
 import Drawer from "../../components/Drawer/Drawer"
-import { getDevicesPosition, setSelectedMarker } from "../../utils"
+import { getDevicesPosition, getHistory, setActivityHistories, setSelectedMarker } from "../../utils"
 import { useDispatch } from 'react-redux'
 
 import { getContacts, setContact } from '../../utils';
@@ -44,6 +44,10 @@ const Map = () => {
 
     getContacts({location_id: marker.location_id }, (result) => {
       dispatch(setContact(result))
+    })
+
+    getHistory({ device_id: marker.device_id }, (res) => {
+      dispatch(setActivityHistories(res))
     })
 
     setDrawer(true)

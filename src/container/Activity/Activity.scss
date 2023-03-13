@@ -65,11 +65,18 @@
     display: flex;
     flex-direction: column;
 
+    .location {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size:0.88em;
+    }
+
     .time {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-size:1em;
+      font-size:0.77em;
       margin-bottom: 0.5rem;
     }
 

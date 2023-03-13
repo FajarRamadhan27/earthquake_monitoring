@@ -13,19 +13,26 @@
   z-index: 1;
 }
 
-.app__navbar-logo {
+.logo-wrapper {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
 
-  img {
-    width: 90px;
-    height: 20px;
-
-    @media screen and (min-width: 2000px) {
-      width: 180px;
-      height: 40px;
+  .app__navbar-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25%; // Make the image circular
+    padding: 4px; // Add some padding around the image
+    background-color: #ffffff; // Set the background color to white
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2); // Add a subtle shadow
+  
+    img {
+      width: 25px;
+      height: 25px;
     }
+  }
+  
+  h2 {
+    margin-left: 0.5rem;
   }
 }
 

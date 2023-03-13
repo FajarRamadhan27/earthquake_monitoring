@@ -6,8 +6,11 @@ import "./Navbar.scss"
 const Navbar = () => {
   return (
     <nav className="app__navbar">
-      <div className="app__navbar-logo">
-        <img alt="logo"/>
+      <div className="logo-wrapper">
+        <div className="app__navbar-logo">
+          <img src="logo.svg" alt="logo"/>
+        </div>
+        <h2 className="primary-text">BPBD</h2>
       </div>
       <div className="app__navbar-menu">
         <AiOutlineUnorderedList/>

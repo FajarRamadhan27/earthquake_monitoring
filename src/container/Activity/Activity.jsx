@@ -8,6 +8,8 @@ import GrainIcon from '@mui/icons-material/Grain';
 import InvertColorsIcon from '@mui/icons-material/InvertColors';
 import TerrainIcon from '@mui/icons-material/Terrain';
 import LandslideIcon from '@mui/icons-material/Landslide';
+import moment from "moment";
+import { useSelector } from "react-redux"
  
 var mqtt = require("mqtt");
 var options = {
@@ -15,11 +17,11 @@ var options = {
   username: "",
   password: "",
   keepalive: 20,
-  clientId: "phpMQTT-subscriber",
+  clientId: "phpMQTT-subscribeasdasdasdasdasdasr",
 };
 var client = mqtt.connect(process.env.REACT_APP_MQTT_HOST, options);
  
-client.subscribe("disaster/history");
+client.subscribe("disaster/landslides");
 
 function a11yProps(index) {
   return {
@@ -39,13 +41,16 @@ const Activity = () => {
     setTabIndex(index);
   };
 
+  const { devices } = useSelector((state) => state.device)
+  
   useEffect(() => {
-    client.on("message", function (topic, message) {
-      var note = message.toString();
-      console.log("Received message:", note);
-      setActivities(prevActivities => [ ...prevActivities,message ]);
+    client.on("message", async function (topic, message) {
+      const note = JSON.parse(message.toString());
+      const locationName = await devices.find((device) => device.device_id === note.id)?.city_name ?? "Bandung";
+      const formattedNote = moment(note.dt, 'YYYYMMDDHHmmssSSS').format('YYYY-MM-DD HH:mm:ss');
+      setActivities(prevActivities => [...prevActivities, {...note, dt: formattedNote, location_name: locationName}]);
     });
-  }, [client]);
+  }, [client])
   
   const handleModalClose = () => {
     setInputModal(false)
@@ -67,6 +72,7 @@ const Activity = () => {
               <h4>CGK-01</h4>
             </div>
             <div className="item-detail">
+              <span className="location-name">Bandung</span>
               <span className="time">2023-03-11 20:07:13</span>
               <div className="activity-detail-container">
                 <div className="activity-detail">
@@ -91,11 +97,12 @@ const Activity = () => {
             </div>
           </div>
           {activities.map((activity, index) => (
-            <div className="app__activity-item" key={activity.device_id}>
+            <div className="app__activity-item" key={activity.id}>
               <div className="item-mg app__flex">
-                <h4>{activity.device_id}</h4>
+                <h4>{activity.id}</h4>
               </div>
               <div className="item-detail">
+              <span className="location-name">{activity.location_name}</span>
                 <span className="time">{activity.dt}</span>
                 <div className="activity-detail-container">
                   <div className="activity-detail">

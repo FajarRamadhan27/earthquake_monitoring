@@ -6,3 +6,6 @@ export { setSelectedMarker, clearSelectedMarker } from "./redux/reducers/MarkerS
 export { toogleLocationForm, setLocationData, clearLocationData } from "./redux/reducers/FormLocationSlice"
 export { setAllLocation } from "./redux/reducers/LocationSlice"
 export { setContact } from "./redux/reducers/ContactSlice"
+export { getHistory } from "./network/lib/History"
+export { setActivityHistories } from "./redux/reducers/ActivityHistory"
+export { setDevice } from "./redux/reducers/DeviceSlice"
