@@ -43,15 +43,7 @@ const Activity = () => {
     client.on("message", function (topic, message) {
       var note = message.toString();
       console.log("Received message:", note);
-      setActivities(prevActivities => [
-        ...prevActivities,
-        {
-          mg: 2.6,
-          location: "14 km SE of Lincolnville, Kansaasdaasdasdas",
-          time: "2023-03-07 17:40:54 (UTC+07:00)",
-          dept: "7.3 km",
-        },
-      ]);
+      setActivities(prevActivities => [ ...prevActivities,message ]);
     });
   }, [client]);
   
@@ -98,24 +90,40 @@ const Activity = () => {
               </div>
             </div>
           </div>
+          {activities.map((activity, index) => (
+            <div className="app__activity-item" key={activity.device_id}>
+              <div className="item-mg app__flex">
+                <h4>{activity.device_id}</h4>
+              </div>
+              <div className="item-detail">
+                <span className="time">{activity.dt}</span>
+                <div className="activity-detail-container">
+                  <div className="activity-detail">
+                    <InvertColorsIcon fontSize="inherit"/>
+                    <span className="detail-value">{activity.h}</span>
+                  </div>
+                  <div className="activity-detail right-side">
+                    <GrainIcon fontSize="inherit"/>
+                    <span className="detail-value">{activity.c}</span>
+                  </div>
+                </div>
+                <div className="activity-detail-container">
+                  <div className="activity-detail">
+                    <TerrainIcon fontSize="inherit"/>
+                    <span className="detail-value">{activity.k}</span>
+                  </div>
+                  <div className="activity-detail right-side">
+                    <LandslideIcon fontSize="inherit"/>
+                    <span className="detail-value">{activity.p}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
          <LocationTable/>
         </TabPanel>
-        {activities.map((activity, index) => (
-          <div className="app__activity-item" key={index}>
-            <div className="item-mg app__flex">
-              <span>{activity.mg}</span>
-            </div>
-            <div className="item-detail">
-              <h6>{activity.location}</h6>
-              <div className="subheader app__flex">
-                <span className="time">{activity.time}</span>
-                <span className="depth">{activity.depth}</span>
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
       <InputLocationModal open={modalInputOpen} handleClose={handleModalClose}/>
     </div>
