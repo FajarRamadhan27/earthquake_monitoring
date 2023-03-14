@@ -30,6 +30,13 @@ function a11yProps(index) {
   };
 }
 
+function mapActivity(activities, devices) {
+  return activities.map((activity) => {
+    const name = devices.find((device) => device.device_id === activity.id)?.name
+    return { ...activity, location_name: name }
+  })
+}
+
 const Activity = () => {
   
   const [activities, setActivities] = useState([])
@@ -46,9 +53,8 @@ const Activity = () => {
   useEffect(() => {
     client.on("message", async function (topic, message) {
       const note = JSON.parse(message.toString());
-      const locationName = await devices.find((device) => device.device_id === note.id)?.city_name ?? "Bandung";
       const formattedNote = moment(note.dt, 'YYYYMMDDHHmmssSSS').format('YYYY-MM-DD HH:mm:ss');
-      setActivities(prevActivities => [...prevActivities, {...note, dt: formattedNote, location_name: locationName}]);
+      setActivities(prevActivities => [...prevActivities, {...note, dt: formattedNote }]);
     });
   }, [client])
   
@@ -96,7 +102,7 @@ const Activity = () => {
               </div>
             </div>
           </div>
-          {activities.map((activity, index) => (
+          {mapActivity(activities, devices).map((activity, index) => (
             <div className="app__activity-item" key={activity.id}>
               <div className="item-mg app__flex">
                 <h4>{activity.id}</h4>
